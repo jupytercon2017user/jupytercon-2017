@@ -1,0 +1,33 @@
+Now that we've seen what working with Spacy looks like, lets look at some of Spacy's core data structures a bit more formally, and see how they fit in to Spacy's internal data model.
+
+As we mentioned, nltk mainly provides pure functions for tasks like tokenization or part of speech tagging. So if we pass a string with white spaces to an nltk tokenizer, we are returned a list of tokens, with no inherent association between the results tokens and the original string.
+
+Spacy however provides an object oriented approach. We create a document object, and tokenization adds metadata to the object indicating what and where the tokens are. These tokens in turn are given metadata as we run additional algorithms like part of speech tagging.
+
+With all of these objects containing metadata and interacting with each other, and by allowing spacy objects to be mutable, we run a risk of ending up with inconsitent data structures. To prevent this from happening, Spacy is designed to store data only once, and simply provide pointers and views to this data throughout the library.
+
+[SCROLL TO STRING STORE]
+
+The central data repository in Spacy is called the string store. The string store is a large list of strings containing words and annotations like parts of speech.
+
+[SCROLL TO CODE EXAMPLE]
+A token as we've seen provides annotations like its string representation and its part of speech. Note that the token contains two attributes, pos and pos underscore. The pos attribute is an integer j that represents the value located in the jth position of the string store. Pos without the underscore is a token attribute that stores a value. Pos with the underscore is wrapper for a method that grabs the jth element of the string store. In this way, all the token contains is a set of instructions on how to retrieve values, with a few integer keys for  reference. This really helps decrease the footprint of holding a document in memory.
+
+[SCROLL TO DIAGRAM]
+
+Many of the attributes stored in tokens,  such as part of speech, are context-specific, meaning we need information from the document to determine their values. 
+
+The word "run" for instance, may be a verb in one sentence, as in "I run twice a week", and a noun in another sentence, such as I went for a run this morning. However, some annotations for run, such as its lower case string representation, are always the same regardless of context. Spacy has data structures called lexemes to store all non-context specific information about a word. All "run" tokens will thus point to the same lexeme, and when we ask for the lower case representation of an instance of run, we query its corresponding lexeme to ensure consistency across all instances of the word.
+
+[scroll to diagram]
+
+Similarly, documents simply point to the tokens that comprise them, and provide spans as a means of grabbing subsequences in tokens, such as multi token entities or noun chunks. 
+
+[scroll to bottom]
+
+
+
+When we process text in spacy, sometimes we have to make modifications to the global string store, such as when documents contain words the language model hasnt seen before. Whenever a new word is processed, spacy will add the word to the string store, and every spacy data structure will reflect the update. As you can in this example, the length of the string store referenced by a new document has increased to reflect the addition of a new word.
+
+Now that we're a bit more familiar with spaCy's architecture, in the upcoming video well begin looking at some its core functionality, beginning with part of speech tagging.
+

@@ -1,0 +1,189 @@
+
+<center>
+<h1>Accessing Dependents</h1>
+<br>
+
+<br>
+<h2>token.subtree</h2><br>
+
+<object data="subtree.svg" type="image/svg+xml">
+  <img src="subtree.jpg" width = 50/>
+</object>
+</center>
+
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">doc <span style="color: #333333">=</span> nlp(<span style="background-color: #fff0f0">u&#39;Harry and little Sally like to eat&#39;</span>)
+<span style="color: #008800; font-weight: bold">for</span> word <span style="color: #000000; font-weight: bold">in</span> doc:
+    <span style="color: #008800; font-weight: bold">if</span> word<span style="color: #333333">.</span>dep_ <span style="color: #333333">==</span> <span style="background-color: #fff0f0">u&#39;conj&#39;</span>:
+        <span style="color: #008800; font-weight: bold">print</span>(<span style="background-color: #fff0f0">&#39; &#39;</span><span style="color: #333333">.</span>join(w<span style="color: #333333">.</span>text <span style="color: #008800; font-weight: bold">for</span> w <span style="color: #000000; font-weight: bold">in</span> word<span style="color: #333333">.</span>subtree))
+</pre></div>
+
+<br>
+<br>
+
+
+
+<br>
+<br>
+<center>
+<h2>token.children</h2><br>
+
+<object data="children.svg" type="image/svg+xml">
+  <img src="children.jpg" width = 50/>
+</object>
+</center>
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">spacy.symbols</span> <span style="color: #008800; font-weight: bold">import</span> nsubj, VERB
+
+<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">get_subject_verb_pairs</span>(doc):
+    <span style="color: #008800; font-weight: bold">for</span> word <span style="color: #000000; font-weight: bold">in</span> doc:
+        <span style="color: #008800; font-weight: bold">if</span> word<span style="color: #333333">.</span>pos <span style="color: #333333">==</span> VERB:
+            <span style="color: #008800; font-weight: bold">for</span> child <span style="color: #000000; font-weight: bold">in</span> word<span style="color: #333333">.</span>children:
+                <span style="color: #008800; font-weight: bold">if</span> child<span style="color: #333333">.</span>dep <span style="color: #333333">==</span> nsubj:
+                    <span style="color: #008800; font-weight: bold">yield</span> ({<span style="background-color: #fff0f0">&#39;subject&#39;</span>:child, <span style="background-color: #fff0f0">&#39;verb&#39;</span>:word})
+</pre></div>
+<br>
+<br>
+
+
+
+
+
+<br>
+<br>
+<center>
+<h2>token.head</h2><br>
+
+<object data="head.svg" type="image/svg+xml">
+  <img src="head.jpg" width = 50/>
+</object>
+</center>
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">degrees_from_root</span>(token):
+    <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">recurse_token</span>(token, count):
+        <span style="color: #008800; font-weight: bold">if</span> token<span style="color: #333333">.</span>dep_ <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&#39;ROOT&#39;</span>:
+            <span style="color: #008800; font-weight: bold">return</span> count
+        <span style="color: #008800; font-weight: bold">else</span>:
+            <span style="color: #008800; font-weight: bold">return</span> recurse_token(token<span style="color: #333333">.</span>head, count <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">1</span>)
+    <span style="color: #008800; font-weight: bold">return</span> recurse_token(token, <span style="color: #0000DD; font-weight: bold">0</span>)
+</pre></div>
+
+
+<br>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<br>
+<center>
+<h2>token.lefts and token.rights</h2><br>
+
+<object data="lefts_and_rights.svg" type="image/svg+xml">
+  <img src="lefts_and_rights.jpg" width = 50/>
+</object>
+</center>
+
+
+<br>
+<br>
+
+
+
+
+
+
+
+<br>
+<br>
+<center>
+<h2>token.left_edge and token.right_edge</h2><br>
+<object data="edges.svg" type="image/svg+xml">
+  <img src="edges.jpg" width = 50/>
+</object>
+</center>
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">sub_span</span>(token):
+    <span style="color: #DD4422">&quot;&quot;&quot;</span>
+<span style="color: #DD4422">    Returns the span of tokens that span the bounds of a token&#39;s subtree</span>
+<span style="color: #DD4422">    &quot;&quot;&quot;</span>
+    
+    left_idx, right_idx <span style="color: #333333">=</span> token<span style="color: #333333">.</span>left_edge<span style="color: #333333">.</span>i, token<span style="color: #333333">.</span>right_edge<span style="color: #333333">.</span>i
+    <span style="color: #008800; font-weight: bold">return</span> token<span style="color: #333333">.</span>doc[left_idx:right_idx <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">1</span>]
+</pre></div>
+
+
+
+
+
+
+
+<br>
+<br>
+<center>
+<h2>token.ancestors</h2><br>
+
+<object data="ancestors.svg" type="image/svg+xml">
+  <img src="ancestors.jpg" width = 50/>
+</object>
+</center>
+<br>
+<br>
+
+
+<br>
+<br>
+<center>
+<h2>token.nbor</h2><br>
+
+
+<object data="nbor.svg" type="image/svg+xml">
+  <img src="nbor.jpg" width = 50/>
+</object>
+</center>
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">mergeHashTags</span>(doc):
+    <span style="color: #DD4422">&quot;&quot;&quot;Merges a token with its previous neighbor if its previous neighbor is a hashtag.&quot;&quot;&quot;</span>
+    
+    tag_idx <span style="color: #333333">=</span> []
+    <span style="color: #008800; font-weight: bold">for</span> token <span style="color: #000000; font-weight: bold">in</span> doc:
+        <span style="color: #008800; font-weight: bold">if</span> token<span style="color: #333333">.</span>i <span style="color: #333333">&gt;</span> <span style="color: #0000DD; font-weight: bold">0</span> <span style="color: #000000; font-weight: bold">and</span> token<span style="color: #333333">.</span>nbor(<span style="color: #333333">-</span><span style="color: #0000DD; font-weight: bold">1</span>)<span style="color: #333333">.</span>text <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&quot;#&quot;</span>:
+            <span style="color: #008800; font-weight: bold">if</span> <span style="color: #000000; font-weight: bold">not</span> token<span style="color: #333333">.</span>nbor(<span style="color: #333333">-</span><span style="color: #0000DD; font-weight: bold">1</span>)<span style="color: #333333">.</span>whitespace_:
+                tag_idx<span style="color: #333333">.</span>append((token<span style="color: #333333">.</span>i <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">1</span>, token<span style="color: #333333">.</span>i <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">1</span>))
+            
+    <span style="color: #008800; font-weight: bold">for</span> idx_pair <span style="color: #000000; font-weight: bold">in</span> tag_idx:
+        doc[<span style="color: #007020">slice</span>(<span style="color: #333333">*</span>idx_pair)]<span style="color: #333333">.</span>merge()
+</pre></div>
+
+
+<br>
+<br>
+
+
+<br>
+<br>
+<center>
+<h2>token.conjuncts</h2><br>
+
+<object data="conjuncts.svg" type="image/svg+xml">
+  <img src="conjuncts.jpg" width = 50/>
+</object>
+</center>
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">get_conjuctive_phrases</span>(doc):
+    <span style="color: #DD4422">&quot;&quot;&quot;</span>
+<span style="color: #DD4422">    Looks for conjuncts, Uses the subspan function to convert the subtree to a span</span>
+<span style="color: #DD4422">    &quot;&quot;&quot;</span>
+    <span style="color: #008800; font-weight: bold">for</span> token <span style="color: #000000; font-weight: bold">in</span> doc:
+        <span style="color: #008800; font-weight: bold">for</span> conj <span style="color: #000000; font-weight: bold">in</span> token<span style="color: #333333">.</span>conjuncts:
+            <span style="color: #008800; font-weight: bold">yield</span> sub_span(conj)
+</pre></div>
+
+<br>
+<br>
+
+
+</center>
+

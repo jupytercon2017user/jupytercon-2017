@@ -1,0 +1,45 @@
+[BEGIN LECTURE AT TAGSET TABLE]
+
+
+In this video we'll learn about part of speech tagging. Specifically, what is part of speech tagging, how is it useful, and how is it done?
+
+You are almost certainly familiar with parts of speech, like verbs, adjectives, and nouns. Words of a given part of speech belong to a grammatical equivalence class, meaning that they the similar syntactic roles within a phrase. Parts of speech  are determined according to various tagsets, or collections of tags with their definitions. Different languages have their own unique tagsets, and multiple tagsets can exist within a language as well. Tags are generally classified as being either open or closed, meaning that members of a tag are fixed. New technology comes out all the time, with new nouns and adjectives to describe it. Thus, nouns and adjectives are open because we can add new members. However, the words we use as pronouns in English are fixed; pronoun is a closed class.
+
+The default english language model in spacy provides tags according to two tagsets. By calling token.pos_, we get a course grained tag from the universal tagset. By calling token.tag_, we get a fine grain tag from the penn tagset. There are 36 of these so we wont present them all here.
+
+[SCROLL TO TWO SENTENCE COMPARISON]
+
+Understanding syntactic roles can be immediately useful for some tasks, such as information retrieval and word sense disambiguation, and helpful as an intermediary step for others, such as grammar parsing, translation, and text generation.
+
+Lets look at a word sense disambiguation example, since its one of the most immediate applications of pos tagging. Take two sentences, 
+"I get a discount on newspapers", and "I discount that newspaper". 
+
+There are clearly two distinct meanings of the word discount in the sentences. We can reflect this distinction by annotating each word with its part of speech. We should note that this approach will not perfectly disambiguate words, there are cases when homonyms can share parts of speech, and there are some additional steps we could take to try to disambiguate these cases. 
+
+[SCROLL TO FREQUENCY PLOT]
+
+Many words can be ambiguous, but how frequently does this happen? Lets take a look at the Brown corpus, a well known general purpose corpus used in nlp research. We can quickly get an approximate lower bound estimate of the frequency of ambiguous words by looking at the number of word instances whose definitions contain multiple parts of speech. The true number of ambiguous words may be greater than this, since some definitions of a word will share a part of speech, and no tagger is perfect. About 45% of the word instances belong to this category. 
+
+[go to color table]
+
+Taking an example sentence, you can see that a lot of words can have multiple tags; the word up for instance has 5 distinct tags within the Brown corpus.
+
+[scroll to sentence pos guessing, make sure pos's cannot be seen]
+
+Let's now explore how we might learn and determine which part of speech a particular word belongs to. We're going to consider a sentence with some made up words in it; you should still be able to figure out these words' parts of speech.
+
+Our sentence is "I was loble to find the effix by klepping the Dongle search engine." Take a moment to figure out the parts of speech of the made up words like loble and effix. Are they proper nouns, adjectives, verbs, adverbs? What sorts of features are you using to make these determinations? You can pause the video if you like.
+
+[run cell showing table, make sure the determinants table is table is also in view]
+
+Spacy is able to provide the correct parts of speech for these words.  You were probably able guess most if not all of these. One thing you might have looked was the part of speech and grammatical requirements of neighboring words. The word klepping is preceeded by the word by, which acting as an adposition. That term may be new to you, but you know that what follows the word "by" should explain the manner the verb "found", i.e. how was the effix found? We would typically explain a verb with a noun phrase, such as "I was able to find it by force of will", or by a verb, such as "I was able to find it by force of will". Having narrowed it down to these two possibilities, we might choose verb as more likely, given the suffix "-ing", the presence of a determiner following the word "klepping", and perhaps other signals as well. Like you, part of speech of taggers encode these rules, either because they were hard coded, or learned by a machine learning algorithm, and applied to the text.
+
+
+The table shown here summarizes what types of information can help us determine a words part of speech. We leave the last row blank to illustrate that this is not an exhaustive list, highlighting the difficulty of building an exhaustive handcoded part of speech tagger.
+
+In some applications, you may need to train the spacy tagger model on a custom dataset.
+If you were analyzing tweets for instance, you'd need to augment your set part of speech of classes to include hashtags or mentions. You might also find that the default tagger is not accurate for your data, possibly because the grammatical rules in your corpus are somewhat specialized or unique. In this case, we can provide SpaCy some examples of sentences labelled with our tagging scheme, and fit the tagger to our annotations. In general, we can be more expressive with many tags, but we also make classification more difficult with more tags.
+
+To customize the tagger, we need to tell spacy how our custom tags map to the universal tag set. As an example, we'll train a tagger from the brown corpus, using the brown corpus part of speech tagset. NLTK contains a mapping from it to the universal tagset, so we can pass that mapping to spacy with a couple small modifications. The vocabulary object provides access to objects and methods related to morphology, syntax, and vocabulary. This is where we will provide the mapping from our observed parts of speech to the universal tagset. We'll create a new vocabulary object, passing in the tagmap returned by this generate tagmap function.
+
+We then need to instantiate a tagger class with our vocab object. The tagger

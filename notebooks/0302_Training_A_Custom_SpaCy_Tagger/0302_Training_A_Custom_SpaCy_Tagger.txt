@@ -1,0 +1,41 @@
+[begin at Training A Part of Speech Tagger with the Conll2000 Corpus]
+
+Now that we've looked at some the intuition behind why parts of speech are useful, and how we can infer, in this video well walk through how to train a SpaCy part speech tagger. For many applications, the default tagger will likely be sufficient, but in cases where the syntax or morphological patterns in your corpus are unique, or if you need to use a custom tagset, then training your own may be essential.
+
+In this video we'll use the conll2000 corpus to learn our parts of speech. Lets take a quick look at the corpus. Ive done a 90-10 train/test split, with about 10000 and 1000 documents in each respective group. The median document length is 23 words, and 44 unique tags were provided. Lets take a look at the distribution of the most common tags.
+
+[Scroll slightly to plot]
+
+Among the most common parts of speech are Nouns, Adpositions, which are words that describe role, spacial, and temploral relationships likes in, to, and during, and then determiners like a or the.
+
+
+[scroll to spacy.tagger.Tagger? and execute to see documentation] (or hit shift-tab and expand)
+
+
+With our corpus loaded, we next need to create a tagger that we can train. If we take a look at what spacy needs to instantiate the tagger, we see that we need a vocabulary object and a statistical model. Our vocabulary will manage a few things for us:
+
+It is a container of all the lexemes, or non-context specific lexical information. Each unique word in our vocabulary will point to its corresponding lexeme. It also contains our string store, which we use whenever we need the string representations of our vocabulary or attributes. 
+
+[Scroll to list of funcs]
+
+
+It contains the functions we'll need to engineer the features used by the statistical parser, which are stored in the lex_attr_getters dictionary. The keys of the dictionary are the features we'd like to collect, such as word suffix, or word shape. The values are the functions we'll use to extract those features from a word.
+
+[Scroll to next Text section]
+
+Lastly, the vocabulary object manages which tags it will use, and how those tags map to the universal tagset.
+
+The other component required to build a tagger is a statistical model, which learns how to predict parts of speech based on the features we evaluate. Spacy currently uses an averaged perceptron implemented by the thinc library. The perceptron model has the ability to perform online learning, meaning we can update the model with new observations as they become available.
+
+Lets first create our statistical model. All we need to do is to tell model which features to use. In this context, a feature is a tuple of integers, where each integer identifies the feature to compute. These integers can be found by importing from spacy.tagger.
+
+Now we need to create a vocab object. The bare minimum we would need is a tagmap, to map the tags we have to the universal tagset, but we are going to load the lexeme data from the english model, so that we can grab the pretrained brown cluster features, which will help our tagger's accuracy. Words that have similar cluster ids were found to appear in similar contexts, and are thus similar.
+
+
+
+
+To train a tagger with SpaCy, we need to define a few things:
+
+Which features will we use to predict the part of speech of a word?
+How will we compute those features?
+How will the tags we provide map back to the universal tagset?

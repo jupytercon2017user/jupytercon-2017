@@ -1,0 +1,19 @@
+In previous video we looked at some of the powerful things we can do with well defined word embeddings. In this video we'll look at how we can learn these embeddings from a corpus.
+
+Lets begin with the observation that two vectors that are similar in meaning should have similar contexts. Word embeddings exploit this fact, using context as a proxy for definition. We'll be looking at three different approaches to learning word embeddings, and all of them attempt to build vectors such that words that often shre contexts are represented by similar vectors. 
+
+
+
+Today one of more widely adopted notions of context is neighboring words. 
+
+
+
+For our first example, we'll look at creating word vectors by performing singular value decomposition on a document term matrix. Singular value decomposition factorizes a matrix into three matrices. The leftmost matrix is a representation of each word in terms of a set of orthogonal, latent dimensions. This is the matrix we'll extract in order to transform a word into a dense vector. The rightmost matrix is a similar matrix, though it represents documents, not words, in the same latent space. The middle matrix is a diagonal matrix containing the singular values of the decomposition, which are proportional to the variances of the embedding dimensions. A dimension with a high singular value can explain a lot of the variation we see in a dataset. These singular values are sorted according to their magnitudes, with the first dimension explaining the most variance in our dataset. To pick a number of dimensions to use to represent our vocabulary, we'll the pick the number of dimensions whose total normalized magnitude accounts for at least 70% of the overall magnitude of the singular values.
+
+Our notion of context is there an entire document. We will weight terms based on their frequency within documents. 
+
+In this example we are going to scale the term frequency by a logarithm. Researchers have argued for sublinear scaling, since the significance of additional word instances likely decreases. The difference between 0 and 10 instances is likely greater than the difference between 10 and 20. 
+
+We will also increase the weight of the frequency of term based on its specificity to the document. We will borrow the notion of entropy from information theory to calculate the specificity of a term to a document. The higher the global entropy of term, the less information it provides. The word "the" occurs in nearly every document, so observing the in a document does not provide much information about the underlying semantics. 
+
+We wont go over all of the details of the code, but broadly we first count the number of instances of each token within each document. We will then scale these values based on taking quotient of a relevance of the term within the document, represented by a logarithm scaled term frequency, and multiplying that by the words global informational, or its inverse entropy. We'll then performed singular value decomposition on the weight matrix. We'll then compute the cumulative proportional explained variance for each dimension, and choose the first K embeddings that explain at least 70% of the overall variance. In this example, 277 dimensions explained 70% of the 

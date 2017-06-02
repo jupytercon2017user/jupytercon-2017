@@ -1,0 +1,9 @@
+Hey everyone, and welcome to this course on natural language processing with spacy. I’m Aaron Kramer, your instructor. I wanted to take a minute to share some of my background with you. As a data scientist at DataScience Inc in Los Angeles, I help build tools and solutions to enable other data scientists to build and evaluate models, and their work throughout their organizations.
+
+A lot of my work here has involved  processing natural language data, and building machine learning models thereon. For a lot of my nlp projects, Ive used spacy as part of pipeline, and I'm also a minor spacy contributor. Beyond natural language processing, my interests include Bayesian Inference, deep learning, econometrics, and model interpretability.
+
+During my undergrad I studied economics at Swarthmore, with a focus on econometrics.
+
+I also contribute to the Datascience blog, where you find my content pieces at this link, though we have a lot of amazing articles from other authors as well.
+
+I'm looking forward to exploring natural language processing and the spacy library with you. Should you need to get in touch, feel free to reach out to me at aaron@datascience.com. 

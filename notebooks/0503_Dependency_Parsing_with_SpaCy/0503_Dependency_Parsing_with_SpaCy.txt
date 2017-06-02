@@ -1,0 +1,88 @@
+to cover:
+
+basic parsing
+parse traversal
+application
+
+In this video we'll begin working SpaCy's dependency parse. The parse itself will always be a tree structure, with a single root, and every other word having exactly one dependent. As we know spaCy provides interfaces for documents, spans, and tokens. Generally when we navigate a dependency parse we will be grabbing attributes and calling methods on tokens. Lets look at some of the attributes and methods spaCy provides at the token level. This is a lot to internalize at all at once, this is just meant to start getting you familiar with how we query elements of parse. 
+
+The parse in this graph is that of the sentence "He and Sally order it twice a week", with "order" being the root. Note that any span will always have a root corresponding to the word within the span of the highest level in the dependency tree.
+
+If we grab any token, such as the root token "order", we can get a generator of all dependents, including the word itself, in order, by calling token.subtree. token.Subtree returns the subtree of the original dependency tree with the given token as the root. The method will work for any token, though if its a word on which nothing depends, then subtree will just return the word itself. In this case, because were asking for a subtree of the full parse with the root of the full parse, we get all the words in the sentence back. 
+
+In this code example, we use subtree to identify all the conjunctive phrases in our text. In Harry and little Sally like to eat, Sally is a conjuct of Harry, and little of modifier of sally, so the code here will print little sally.
+
+[SCROLL TO token.children]
+
+Unlike the subtree of a token, token.children returns a generator of all the words that are immediately dependent on the token. Only "He", "it" and "once" are immediately connected to and dependent on the root, so they represent the root's children.
+
+In this code example, we'll extract any subject verb pairs that we can find.
+The code reads:
+For every token in the document, if the token is a verb, then lets look at all of the verbs immediate dependents or children. If a dependent is related to the verb as a subject, then yield a subject verb pair.
+
+[scroll to token.head]
+
+Next we'll take a look at the token.head function, which simply returns the parent word of token. Recall that for any well formed dependency parse, every token other than the root has exactly one parent. In this code example, we'll utilize that property to calculate the level, or length of dependence from the root of the sentence. This degrees from root function is recursive. The base condition is that the token we passed in is the root, in which case we'll return 0. otherwise, we'll move from the current token to the tokens head, and increasing the count by one. Once we hit the root node, which we always will, we'll return the count.
+
+
+[scroll to token lefts/rights ]
+
+This token.lefts and .rights methods are identical to the token.children method, meaning they return immediate dependents, but we obviously restrict the results to be either before or after the target word, respectively. We'll cover an interesting application at the end of the video.
+
+[scroll to token.left_edge]
+
+Left and right edge are methods that take the left and rightmost elements of a tokens children. This method can come in handy when you want to define a span of interest. In this code example, this function sub_span grabs the indexes of a tokens left and right edges. It then returns the span that fills the gap. Note that you wouldnt want to run this model on languages where non-projective sentences are prevalent, since elements of a subtree may not be contiguous.
+
+[scroll to token.ancestors]
+
+A token's ancestors are all the words that are dominant to the token. the method returns a list of tokens in order of dependence, always terminating at the root node. This method is useful if you want to traverse up the tree.
+
+
+[scroll to nbor]
+
+Sometimes we need to access tokens in a way that has nothing to do with dependence. Calling the nbor  method with argument i returns the token who index is i plus the index of the original token. In this clean up function here, we merge hash tags by iterating over a document, and merging the token with its left neighbor whenever the left neighbor is a hashtag without a separating whitespace in between.
+
+[scroll to conjuncts]
+
+The last method we'll review is the conjuncts method. It simply returns a generator of all the words that conjuncts of the target word. This method can come in handy when you want to handle an element and its conjunct as a single entity. This get conjuctive phrases method iterates over the conjuncts of each token, and returns the span that covers the subtree of the conjuct. Recall subtree was the method we wrote each to convert a subtree into a span. 
+
+
+[SCROLL TO PARSE TREE TRAVERSAL]
+
+Now that we've seen some of key methods that allow to traverse a dependency tree, lets write a higher level function that we might want to incorporate into our model pipeline. In english it common to have verb phrases that are composed of one or more auxiliary verbs. For some applications we might want to merge these spans into tokens. 
+
+[scroll to code]
+This function will merge a verbs auxiliaries and negations into a single token. First, we'll grab all the verbs in the document that are not auxiliary to another verb. the lambda function is_non_auxiliary verb simply checks that a token is a verb is not an auxiliary dependent on another token.
+
+For each verb that we find, we want to grab all of the neighboring auxiliaries and negations, which we will then merge once available. The resulting token will take on the attribute values of the root of the phrase, which should always be the key verb.
+
+[make sure get_span function is in clear view]
+
+To get the span covering all neighboring auxiliaries and negations, we will traverse the parse tree relative to the key verb. For every child on the left, as long as the child is an auxiliary or a negation, we extend the span to include. Once we run out of children on the left or hit a word that isnt a negation or auxiliary, we'll stop. We repeat the same process for all right children. Note that we reversed the left children, so we begin by considering the rightmost token, which is closest to the key verb.
+
+[scroll to pipeline]
+
+with a function that merges verb phrases available, we can create a custom pipeline to execute in on new documents. Recall that the procedure is to first write a function that returns a list of operators that modify documents, in order you want them to be executed. We then can call spacy.load with a language id, along with the keyword argument create_pipeline that points to the function.
+
+[scroll to example]
+
+As we can see in this example, auxiliary verb "do" and the negation "not" are merged with key verb "like".
+ 
+
+[scroll to iframe]
+
+Often times when diagnosing the parse, or when trying to learn about some text, its helpful to be able to visualize the parse. Now there is a sister project to spacy called displacy, which is a javascript application that returns svg images of parses. There is a demo version available on the explosion.ai website. If you want to, you can start your own node server, launch the application, and try it out. I personally often find that I like to quick look at parse within the notebook using python, so lets walk through a class we use to do just that.
+
+[scroll to code]
+To make our lives easier, we're going to use networkx to store our dependency graph, and for plotting. Networkx is an excellent python library for graphical analysis. The first step is to build a networkx  graph. Since dependency relationships are directed, meaning there is a defined head and dependent, the graph will be a directed graph. Lets take a look at the code to create a graph from the spacy dependency parse.
+
+[ensure sentToGraph is front and center]
+
+This function is recursive. Our function will look at every single word in the span, and create a node within the graph by calling graph.add_node. Each node will have a unique id, its index within the original spacy document, along with some metadata like its text reprentation and its part of speech tag. Well begin creating a graph, and adding the root of the span to graph. We'll then modify the graph by passing through a recursive function. Like all recursive functions, we have a base case and a means of stepping forward toward the base case. Here our base case is that a word in the sentence has no more dependents. In that case , token.lefts and .rights will be empty, so we simply add return the graph.
+
+Otherwise, we are looking at a token that has dependents, so we need add the dependent to the graph, and add an edge connecting the token to its dependent. NetworkX lets us associate arbitrary metadata to both nodes and edges, so we'll annotate the edge with the dependency type. Once the recursion is finished, we have a graph object that fully captures the parse. The other method in this class simply uses a few networkx plotting functions to get a matplotlib figure showing the parse. Lets take a look at:
+[scroll to plot.]
+
+These dependency plots are truly invaluable when youre trying to diagnose the parse, or figure out some complicating phrasing logic.
+
+
