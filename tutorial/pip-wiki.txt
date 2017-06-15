@@ -1,0 +1,18 @@
+Collecting wikipedia
+  Downloading wikipedia-1.4.0.tar.gz
+Collecting beautifulsoup4 (from wikipedia)
+  Downloading beautifulsoup4-4.6.0-py3-none-any.whl (86kB)
+Requirement already satisfied: requests<3.0.0,>=2.0.0 in /usr/local/lib/python3.5/dist-packages (from wikipedia)
+Building wheels for collected packages: wikipedia
+  Running setup.py bdist_wheel for wikipedia: started
+  Running setup.py bdist_wheel for wikipedia: finished with status 'done'
+  Stored in directory: /home/jupyter/.cache/pip/wheels/bf/87/25/df698dd7b66a42c1c5f3bd36f8155d4518d210f5e2c128b440
+Successfully built wikipedia
+Installing collected packages: beautifulsoup4, wikipedia
+Successfully installed beautifulsoup4-4.6.0 wikipedia-1.4.0
+Requirement already satisfied: wikipedia in /usr/local/lib/python3.5/dist-packages
+Requirement already satisfied: beautifulsoup4 in /usr/local/lib/python3.5/dist-packages (from wikipedia)
+Requirement already satisfied: requests<3.0.0,>=2.0.0 in /usr/local/lib/python3.5/dist-packages (from wikipedia)
+Requirement already satisfied: wikipedia in /usr/local/lib/python3.5/dist-packages
+Requirement already satisfied: beautifulsoup4 in /usr/local/lib/python3.5/dist-packages (from wikipedia)
+Requirement already satisfied: requests<3.0.0,>=2.0.0 in /usr/local/lib/python3.5/dist-packages (from wikipedia)
