@@ -16,3 +16,32 @@ Requirement already satisfied: requests<3.0.0,>=2.0.0 in /usr/local/lib/python3.
 Requirement already satisfied: wikipedia in /usr/local/lib/python3.5/dist-packages
 Requirement already satisfied: beautifulsoup4 in /usr/local/lib/python3.5/dist-packages (from wikipedia)
 Requirement already satisfied: requests<3.0.0,>=2.0.0 in /usr/local/lib/python3.5/dist-packages (from wikipedia)
+Collecting wikipedia
+  Downloading wikipedia-1.4.0.tar.gz
+Requirement already satisfied: beautifulsoup4 in /opt/conda/envs/python3/lib/python3.5/site-packages (from wikipedia)
+Requirement already satisfied: requests<3.0.0,>=2.0.0 in /opt/conda/envs/python3/lib/python3.5/site-packages (from wikipedia)
+Requirement already satisfied: chardet<3.1.0,>=3.0.2 in /opt/conda/envs/python3/lib/python3.5/site-packages (from requests<3.0.0,>=2.0.0->wikipedia)
+Requirement already satisfied: idna<2.6,>=2.5 in /opt/conda/envs/python3/lib/python3.5/site-packages (from requests<3.0.0,>=2.0.0->wikipedia)
+Requirement already satisfied: urllib3<1.22,>=1.21.1 in /opt/conda/envs/python3/lib/python3.5/site-packages (from requests<3.0.0,>=2.0.0->wikipedia)
+Requirement already satisfied: certifi>=2017.4.17 in /opt/conda/envs/python3/lib/python3.5/site-packages (from requests<3.0.0,>=2.0.0->wikipedia)
+Building wheels for collected packages: wikipedia
+  Running setup.py bdist_wheel for wikipedia: started
+  Running setup.py bdist_wheel for wikipedia: finished with status 'done'
+  Stored in directory: /home/jupyter/.cache/pip/wheels/bf/87/25/df698dd7b66a42c1c5f3bd36f8155d4518d210f5e2c128b440
+Successfully built wikipedia
+Installing collected packages: wikipedia
+Successfully installed wikipedia-1.4.0
+Requirement already satisfied: wikipedia in /opt/conda/envs/python3/lib/python3.5/site-packages
+Requirement already satisfied: beautifulsoup4 in /opt/conda/envs/python3/lib/python3.5/site-packages (from wikipedia)
+Requirement already satisfied: requests<3.0.0,>=2.0.0 in /opt/conda/envs/python3/lib/python3.5/site-packages (from wikipedia)
+Requirement already satisfied: chardet<3.1.0,>=3.0.2 in /opt/conda/envs/python3/lib/python3.5/site-packages (from requests<3.0.0,>=2.0.0->wikipedia)
+Requirement already satisfied: idna<2.6,>=2.5 in /opt/conda/envs/python3/lib/python3.5/site-packages (from requests<3.0.0,>=2.0.0->wikipedia)
+Requirement already satisfied: urllib3<1.22,>=1.21.1 in /opt/conda/envs/python3/lib/python3.5/site-packages (from requests<3.0.0,>=2.0.0->wikipedia)
+Requirement already satisfied: certifi>=2017.4.17 in /opt/conda/envs/python3/lib/python3.5/site-packages (from requests<3.0.0,>=2.0.0->wikipedia)
+Requirement already satisfied: wikipedia in /opt/conda/envs/python3/lib/python3.5/site-packages
+Requirement already satisfied: beautifulsoup4 in /opt/conda/envs/python3/lib/python3.5/site-packages (from wikipedia)
+Requirement already satisfied: requests<3.0.0,>=2.0.0 in /opt/conda/envs/python3/lib/python3.5/site-packages (from wikipedia)
+Requirement already satisfied: chardet<3.1.0,>=3.0.2 in /opt/conda/envs/python3/lib/python3.5/site-packages (from requests<3.0.0,>=2.0.0->wikipedia)
+Requirement already satisfied: idna<2.6,>=2.5 in /opt/conda/envs/python3/lib/python3.5/site-packages (from requests<3.0.0,>=2.0.0->wikipedia)
+Requirement already satisfied: urllib3<1.22,>=1.21.1 in /opt/conda/envs/python3/lib/python3.5/site-packages (from requests<3.0.0,>=2.0.0->wikipedia)
+Requirement already satisfied: certifi>=2017.4.17 in /opt/conda/envs/python3/lib/python3.5/site-packages (from requests<3.0.0,>=2.0.0->wikipedia)
