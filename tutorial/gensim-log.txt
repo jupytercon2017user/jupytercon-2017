@@ -1,0 +1,28 @@
+Collecting gensim
+  Using cached gensim-2.2.0.tar.gz
+Requirement already satisfied: numpy>=1.11.3 in /opt/conda/envs/python3/lib/python3.5/site-packages (from gensim)
+Requirement already satisfied: scipy>=0.19.0 in /opt/conda/envs/python3/lib/python3.5/site-packages (from gensim)
+Requirement already satisfied: six>=1.5.0 in /opt/conda/envs/python3/lib/python3.5/site-packages (from gensim)
+Collecting smart_open>=1.2.1 (from gensim)
+  Using cached smart_open-1.5.3.tar.gz
+Requirement already satisfied: boto>=2.32 in /opt/conda/envs/python3/lib/python3.5/site-packages (from smart_open>=1.2.1->gensim)
+Collecting bz2file (from smart_open>=1.2.1->gensim)
+  Using cached bz2file-0.98.tar.gz
+Requirement already satisfied: requests in /opt/conda/envs/python3/lib/python3.5/site-packages (from smart_open>=1.2.1->gensim)
+Requirement already satisfied: chardet<3.1.0,>=3.0.2 in /opt/conda/envs/python3/lib/python3.5/site-packages (from requests->smart_open>=1.2.1->gensim)
+Requirement already satisfied: idna<2.6,>=2.5 in /opt/conda/envs/python3/lib/python3.5/site-packages (from requests->smart_open>=1.2.1->gensim)
+Requirement already satisfied: urllib3<1.22,>=1.21.1 in /opt/conda/envs/python3/lib/python3.5/site-packages (from requests->smart_open>=1.2.1->gensim)
+Requirement already satisfied: certifi>=2017.4.17 in /opt/conda/envs/python3/lib/python3.5/site-packages (from requests->smart_open>=1.2.1->gensim)
+Building wheels for collected packages: gensim, smart-open, bz2file
+  Running setup.py bdist_wheel for gensim: started
+  Running setup.py bdist_wheel for gensim: finished with status 'done'
+  Stored in directory: /home/jupyter/.cache/pip/wheels/f9/a2/64/c5f83d11149f86beb065088cffdb47373655d27f4b2b995cac
+  Running setup.py bdist_wheel for smart-open: started
+  Running setup.py bdist_wheel for smart-open: finished with status 'done'
+  Stored in directory: /home/jupyter/.cache/pip/wheels/b0/81/ad/856aade935fceaab491a800ec4de58edb8642afa4c4ba91a00
+  Running setup.py bdist_wheel for bz2file: started
+  Running setup.py bdist_wheel for bz2file: finished with status 'done'
+  Stored in directory: /home/jupyter/.cache/pip/wheels/31/9c/20/996d65ca104cbca940b1b053299b68459391c01c774d073126
+Successfully built gensim smart-open bz2file
+Installing collected packages: bz2file, smart-open, gensim
+Successfully installed bz2file-0.98 gensim-2.2.0 smart-open-1.5.3
