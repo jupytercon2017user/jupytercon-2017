@@ -1,0 +1,29 @@
+Collecting tensorflow
+  Downloading tensorflow-1.2.1-cp35-cp35m-manylinux1_x86_64.whl (34.5MB)
+Requirement already satisfied: werkzeug>=0.11.10 in /opt/conda/envs/python3/lib/python3.5/site-packages (from tensorflow)
+Collecting backports.weakref==1.0rc1 (from tensorflow)
+  Downloading backports.weakref-1.0rc1-py3-none-any.whl
+Requirement already satisfied: wheel>=0.26 in /opt/conda/envs/python3/lib/python3.5/site-packages (from tensorflow)
+Requirement already satisfied: bleach==1.5.0 in /opt/conda/envs/python3/lib/python3.5/site-packages (from tensorflow)
+Collecting html5lib==0.9999999 (from tensorflow)
+  Downloading html5lib-0.9999999.tar.gz (889kB)
+Requirement already satisfied: six>=1.10.0 in /opt/conda/envs/python3/lib/python3.5/site-packages (from tensorflow)
+Requirement already satisfied: numpy>=1.11.0 in /opt/conda/envs/python3/lib/python3.5/site-packages (from tensorflow)
+Collecting protobuf>=3.2.0 (from tensorflow)
+  Downloading protobuf-3.3.0-cp35-cp35m-manylinux1_x86_64.whl (5.7MB)
+Collecting markdown>=2.6.8 (from tensorflow)
+  Downloading Markdown-2.6.8.tar.gz (307kB)
+Requirement already satisfied: setuptools in /opt/conda/envs/python3/lib/python3.5/site-packages (from protobuf>=3.2.0->tensorflow)
+Building wheels for collected packages: html5lib, markdown
+  Running setup.py bdist_wheel for html5lib: started
+  Running setup.py bdist_wheel for html5lib: finished with status 'done'
+  Stored in directory: /home/jupyter/.cache/pip/wheels/6f/85/6c/56b8e1292c6214c4eb73b9dda50f53e8e977bf65989373c962
+  Running setup.py bdist_wheel for markdown: started
+  Running setup.py bdist_wheel for markdown: finished with status 'done'
+  Stored in directory: /home/jupyter/.cache/pip/wheels/85/a7/08/33ee5cd488d0365d8bed79d1d4e5c28dd3fbfc7f6d0ad4bb09
+Successfully built html5lib markdown
+Installing collected packages: backports.weakref, html5lib, protobuf, markdown, tensorflow
+  Found existing installation: html5lib 1.0b8
+    Uninstalling html5lib-1.0b8:
+      Successfully uninstalled html5lib-1.0b8
+Successfully installed backports.weakref-1.0rc1 html5lib-0.9999999 markdown-2.6.8 protobuf-3.3.0 tensorflow-1.2.1
