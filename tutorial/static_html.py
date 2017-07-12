@@ -431,3 +431,7 @@ dep_axioms = """
 </object>
 
 </center>"""
+
+cp non-planar-parse.svg ../../tutorial/assets/non-planar-parse.svg
+cp planar-parse.s ../../tutorial/assets/
+
