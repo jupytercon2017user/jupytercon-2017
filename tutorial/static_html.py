@@ -391,3 +391,43 @@ valency = """
 </pre></div>
 
 """
+
+dep_axioms = """
+<center>
+<h3> Axioms of Dependency Grammar: </h3>
+<br>
+<h4>1) Each sentence has exactly one root.</h4>
+<br>
+<object data="assets/axiom1.svg" type="image/svg+xml">
+  <img src="assets/axiom1.jpg" />
+</object>
+<br>
+<h4>2) Every word other than the root depends on another element.</h4>
+<br>
+<object data="assets/singlehead.svg" type="image/svg+xml">
+  <img src="assets/singlehead.jpg" width = 50/>
+</object>
+<br>
+<h4>3) No word can depend on more than one element.</h4>
+<br>
+<object data="assets/non-multi-headed.svg" type="image/svg+xml">
+  <img src="assets/non-multi-headed.jpg" width = 50/>
+</object>
+
+<br>
+<object data="assets/non-multi-headed-normative.svg" type="image/svg+xml">
+  <img src="assets/non-multi-headed-normative.jpg" width = 50/>
+</object>
+<br>
+<h4>4) Dependencies do not cross each other (planar trees).</h4>
+<br>
+<object data="assets/planar-parse.svg" type="image/svg+xml">
+  <img src="assets/planar-parse.jpg" width = 50/>
+</object>
+
+<br>
+<object data="assets/non-planar-parse.svg" type="image/svg+xml">
+  <img src="assets/non-planar-parse.jpg" width = 50/>
+</object>
+
+</center>"""
