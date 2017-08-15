@@ -107,14 +107,14 @@ syntax = """
   </tr>
   <tr>
     <td class="tg-yw4l">determiner</td>
-    <td class="tg-yw4l">simple subject</td>
+    <td class="tg-yw4l">noun/simple subject</td>
     <td class="tg-yw4l">verb</td>
     <td class="tg-yw4l">preposition<br></td>
     <td class="tg-yw4l">determiner</td>
     <td class="tg-yw4l">object (of preposition)</td>
   </tr>
   <tr>
-    <td class="tg-yw4l" colspan="2">subject phrase</td>
+    <td class="tg-yw4l" colspan="2">subject phrase/determiner phrase</td>
     <td class="tg-yw4l"></td>
     <td class="tg-yw4l" colspan="3">prepositional phrase</td>
   </tr>
