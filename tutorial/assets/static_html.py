@@ -394,9 +394,9 @@ valency = """
 
 dep_axioms = """
 <center>
-<h3> Axioms of Dependency Grammar: </h3>
+<h3> Axioms of Dependency Structures: </h3>
 <br>
-<h4>1) Each sentence has exactly one root.</h4>
+<h4>1) Each structure has exactly one root.</h4>
 <br>
 <object data="assets/axiom1.svg" type="image/svg+xml">
   <img src="assets/axiom1.jpg" />

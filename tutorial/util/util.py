@@ -1,3 +1,8 @@
+
+import io, os, sys, types
+from IPython import get_ipython
+from nbformat import read
+from IPython.core.interactiveshell import InteractiveShell
 from IPython.display import HTML
 import urllib
 from IPython.display import IFrame
@@ -55,3 +60,4 @@ def extract_simple_relations(sentence):
             relation = {'subject':SUBJECT,'property':PROPERTY,'relation':VERB}
             relations.append(relation)
     return relations
+
